@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  Coiner
+
+  Created by Nikita Morozov on 3/24/22.
+  
+*/
+"AlertOk"="OK";
+
+"AppIconWhite"="White";
+"AppIconBlack"="Black";
+"AppIconYellow"="Yellow";
+
+"TabTitleAssets"="Assets";
+"TabTitleWatchlist"="Watchlist";
+"TabTitleSettings"="Settings";

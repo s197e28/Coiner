@@ -23,5 +23,6 @@ extension MainPresenter: MainViewOutputProtocol {
     
     func viewDidLoad() {
         
+        
     }
 }

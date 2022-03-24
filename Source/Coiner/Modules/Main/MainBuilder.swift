@@ -10,16 +10,23 @@ import Swinject
 
 final class MainBuilder: MainBuilderProtocol {
     
-    private let resolver: Resolver
+    private let assetsBuilder: AssetsBuilderProtocol
+    private let watchlistBuilder: WatchlistBuilderProtocol
+    private let settingsBuilder: SettingsBuilderProtocol
     
-    init(resolver: Resolver) {
-        self.resolver = resolver
+    init(assetsBuilder: AssetsBuilderProtocol,
+         watchlistBuilder: WatchlistBuilderProtocol,
+         settingsBuilder: SettingsBuilderProtocol) {
+        self.assetsBuilder = assetsBuilder
+        self.watchlistBuilder = watchlistBuilder
+        self.settingsBuilder = settingsBuilder
     }
     
-//    convenience init(resolver: Resolver) {
-//        self.init(
-//            resolver: resolver)
-//    }
+    convenience init(resolver: Resolver) {
+        self.init(assetsBuilder: resolver.resolve(AssetsBuilderProtocol.self)!,
+                  watchlistBuilder: resolver.resolve(WatchlistBuilderProtocol.self)!,
+                  settingsBuilder: resolver.resolve(SettingsBuilderProtocol.self)!)
+    }
     
     func make() -> UIViewController {
         let viewController = MainViewController()
@@ -35,43 +42,46 @@ final class MainBuilder: MainBuilderProtocol {
     }
     
     private func makeAssetsModule() -> UIViewController {
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .red
+        let vc = assetsBuilder.make()
         
         let item = UITabBarItem()
-        item.title = "Assets"
+        item.title = loc("TabTitleAssets")
+        item.image = UIImage(named: "bitcoinsign.circle.fill")
         
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.viewControllers = [viewController]
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.viewControllers = [vc]
         navigationController.tabBarItem = item
+        navigationController.navigationBar.prefersLargeTitles = true
         
         return navigationController
     }
     
     private func makeWatchlistModule() -> UIViewController {
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .green
+        let vc = watchlistBuilder.make()
         
         let item = UITabBarItem()
-        item.title = "Watchlist"
+        item.title = loc("TabTitleWatchlist")
+        item.image = UIImage(named: "heart.fill")
         
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.viewControllers = [viewController]
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.viewControllers = [vc]
         navigationController.tabBarItem = item
+        navigationController.navigationBar.prefersLargeTitles = true
         
         return navigationController
     }
     
     private func makeSettingsModule() -> UIViewController {
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .blue
+        let vc = settingsBuilder.make()
         
         let item = UITabBarItem()
-        item.title = "Settings"
+        item.title = loc("TabTitleSettings")
+        item.image = UIImage(named: "gearshape.fill")
         
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.viewControllers = [viewController]
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.viewControllers = [vc]
         navigationController.tabBarItem = item
+        navigationController.navigationBar.prefersLargeTitles = true
         
         return navigationController
     }

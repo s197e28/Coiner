@@ -1,0 +1,9 @@
+/* 
+  Localizable.ChangeIcon.strings
+  Coiner
+
+  Created by Nikita Morozov on 3/24/22.
+  
+*/
+"ModuleTitle"="Иконка";
+"IconNotChanged"="Не удалось поменять иконку";
