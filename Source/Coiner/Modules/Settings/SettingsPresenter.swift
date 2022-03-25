@@ -23,7 +23,8 @@ final class SettingsPresenter {
         [SimpleTableViewCellModel(
             id: CellId.changeIcon.rawValue,
             text: loc("ModuleTitle", from: .сhangeIcon),
-            detailsText: interactor?.currentIcon.localizedName)]
+            detailsText: interactor?.currentIcon.localizedName,
+            accessoryType: .disclosureIndicator)]
     }()
     
     init(view: SettingsViewInputProtocol,

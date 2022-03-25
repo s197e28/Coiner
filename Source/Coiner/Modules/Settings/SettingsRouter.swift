@@ -26,6 +26,5 @@ final class SettingsRouter: SettingsRouterProtocol {
         
         let vc = builder.make(output: output)
         navigationController.show(vc, sender: nil)
-//        navigationController.present(vc, animated: true, completion: nil)
     }
 }

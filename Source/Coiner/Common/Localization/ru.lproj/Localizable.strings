@@ -6,6 +6,7 @@
   
 */
 "AlertOk"="OK";
+"AlertError"="Ошибка";
 
 "AppIconWhite"="Белый";
 "AppIconBlack"="Чёрный";
@@ -14,3 +15,11 @@
 "TabTitleAssets"="Активы";
 "TabTitleWatchlist"="Список наблюдения";
 "TabTitleSettings"="Настройки";
+
+"InternetConnectionError"="Интернет соединение прервано";
+"UnknownError"="Незвестная ошибка";
+
+"MarketCap"="Капитализация";
+"Supply"="Поставка";
+"Volume24h"="Объём (24ч)";
+"Remove"=" Удалить";

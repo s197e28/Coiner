@@ -11,7 +11,7 @@ import Swinject
 final class AssetDetailsRouter: AssetDetailsRouterProtocol {
     
     private var resolver: Resolver
-    private weak var viewController: UIViewController?
+    weak var viewController: UIViewController?
     
     init(resolver: Resolver, viewController: UIViewController) {
         self.resolver = resolver

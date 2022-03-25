@@ -18,4 +18,10 @@ struct AssetModel: Codable {
     var priceUsd: String
     
     var changePercent24Hr: String
+    
+    var marketCapUsd: String
+    
+    var volumeUsd24Hr: String
+    
+    var supply: String
 }

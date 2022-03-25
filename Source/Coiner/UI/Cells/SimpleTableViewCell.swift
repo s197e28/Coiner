@@ -32,7 +32,7 @@ final class SimpleTableViewCell: UITableViewCell {
     // MARK: Private methods
     
     private func setupUI() {
-        accessoryType = .disclosureIndicator
+        accessoryType = .none
     }
 }
 
@@ -45,6 +45,7 @@ extension SimpleTableViewCell: ConfigurableCellProtocol {
         
         textLabel?.text = model.text
         detailTextLabel?.text = model.detailsText
+        accessoryType = model.accessoryType
     }
 }
 
@@ -58,12 +59,16 @@ class SimpleTableViewCellModel: ConfigurableCellModelProtocol {
     
     var detailsText: String?
     
+    var accessoryType: UITableViewCell.AccessoryType
+    
     init(id: Int? = nil,
          text: String? = nil,
-         detailsText: String? = nil) {
+         detailsText: String? = nil,
+         accessoryType: UITableViewCell.AccessoryType = .none) {
         self.id = id
         self.text = text
         self.detailsText = detailsText
+        self.accessoryType = accessoryType
     }
     
     func cellType() -> ConfigurableCellProtocol.Type {

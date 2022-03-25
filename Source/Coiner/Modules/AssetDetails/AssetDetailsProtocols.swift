@@ -12,12 +12,12 @@ import Combine
 
 protocol AssetDetailsBuilderProtocol: AnyObject {
     
-    func make(output: AssetDetailsOutputProtocol?) -> UIViewController
+    func make(asset: AssetEntity) -> UIViewController
 }
 
 //MARK: Router
 
-protocol AssetDetailsRouterProtocol: AnyObject {
+protocol AssetDetailsRouterProtocol: ModuleRouterProtocol {
     
 }
 
@@ -26,33 +26,55 @@ protocol AssetDetailsRouterProtocol: AnyObject {
 protocol AssetDetailsViewOutputProtocol: AnyObject {
     
     func viewDidLoad()
-        
-    func didSelectTableRow(_ model: ConfigurableCellModelProtocol)
+    
+    func didTapFavouriteButton()
 }
 
 // MARK: Presenter -> Interactor
 
 protocol AssetDetailsInteractorInputProtocol: AnyObject {
     
+    func isInWatchlist(asset: AssetEntity) -> Bool
+    
+    func fetchAssetHistory(with id: String)
+    
+    func fetchAssetDetails(with id: String)
+    
+    func addToWatchlist(asset: AssetEntity)
+    
+    func removeFromWatchlist(asset: AssetEntity)
 }
 
 //MARK: Interactor -> Presenter
 
 protocol AssetDetailsInteractorOutputProtocol: AnyObject {
     
+    func onAssetAddToWatchlist(asset: AssetEntity)
+    
+    func onAssetRemoveFromWatchlist(asset: AssetEntity)
+    
+    func didFetchAssetHistory(items: [HistoryPointEntity])
+    
+    func didFailedFetchAssetHistory(_ error: Error)
+    
+    func didFetchAssetDetails(item: AssetEntity)
+    
+    func didFailedFetchAssetDetails(_ error: Error)
 }
 
 //MARK: Presenter -> ViewController
 
 protocol AssetDetailsViewInputProtocol: AnyObject {
     
-    func setTitle(text: String?)
+    func setTitle(text: String?, details: String?)
+    
+    func setHeader(text: String?)
+    
+    func setSubheader(text: String?, isPositive: Bool)
     
     func reloadTableView(with collection: ConfigurableCollectionProtocol)
-}
-
-// MARK: Output
-
-protocol AssetDetailsOutputProtocol: AnyObject {
     
+    func setFavouriteButton(filled: Bool)
+    
+    func drawChart(points: [Float], minLabelText: String?, maxLabelText: String?)
 }

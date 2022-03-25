@@ -6,6 +6,7 @@
   
 */
 "AlertOk"="OK";
+"AlertError"="Error";
 
 "AppIconWhite"="White";
 "AppIconBlack"="Black";
@@ -14,3 +15,11 @@
 "TabTitleAssets"="Assets";
 "TabTitleWatchlist"="Watchlist";
 "TabTitleSettings"="Settings";
+
+"InternetConnectionError"="Internet Connection appears to be offline";
+"UnknownError"="Unknown error";
+
+"MarketCap"="Market Cap";
+"Supply"="Supply";
+"Volume24h"="Volume (24h)";
+"Remove"="Remove";

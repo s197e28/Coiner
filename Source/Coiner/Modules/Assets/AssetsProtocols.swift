@@ -17,8 +17,9 @@ protocol AssetsBuilderProtocol: AnyObject {
 
 //MARK: Router
 
-protocol AssetsRouterProtocol: AnyObject {
+protocol AssetsRouterProtocol: ModuleRouterProtocol {
     
+    func openAssetDetailsModule(asset: AssetEntity)
 }
 
 //MARK: View -> Presenter
@@ -29,9 +30,11 @@ protocol AssetsViewOutputProtocol: AnyObject {
         
     func didSelectTableRow(_ model: ConfigurableCellModelProtocol)
     
-    func didSearchTextChanged(_ value: String?)
+    func didStartRefresh()
     
-    func didTapSearchButton()
+    func didChangeSearchBarText(_ value: String?)
+    
+    func didTapSearchBarCancelButton()
     
     func didScrollToBottom()
 }
@@ -40,14 +43,21 @@ protocol AssetsViewOutputProtocol: AnyObject {
 
 protocol AssetsInteractorInputProtocol: AnyObject {
     
-    func fetchAssets(skip: Int, take: Int)
+    func fetchAssets(search: String?, skip: Int, take: Int) -> URLSessionTask
+}
+
+extension AssetsInteractorInputProtocol {
+    
+    func fetchAssets(skip: Int, take: Int) -> URLSessionTask {
+        fetchAssets(search: nil, skip: skip, take: take)
+    }
 }
 
 //MARK: Interactor -> Presenter
 
 protocol AssetsInteractorOutputProtocol: AnyObject {
     
-    func didFetchAssets(items: [AssetModel])
+    func didFetchAssets(items: [AssetEntity])
     
     func didFailFetchAssets(_ error: Error)
 }
@@ -61,4 +71,6 @@ protocol AssetsViewInputProtocol: AnyObject {
     func reloadTableView(with collection: ConfigurableCollectionProtocol)
     
     func reloadSearchTableView(with collection: ConfigurableCollectionProtocol)
+    
+    func endRefreshing()
 }

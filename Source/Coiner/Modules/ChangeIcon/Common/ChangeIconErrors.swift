@@ -17,9 +17,9 @@ enum ChangeIconProcessError: LocalizedError {
 extension ChangeIconProcessError {
     
     public var errorDescription: String? {
-            switch self {
-            case .unknown:
-                return loc("IconNotChanged", from: .сhangeIcon)
-            }
+        switch self {
+        case .unknown:
+            return loc("IconNotChanged", from: .сhangeIcon)
         }
+    }
 }

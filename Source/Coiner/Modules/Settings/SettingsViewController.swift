@@ -23,6 +23,9 @@ final class SettingsViewController: UIViewController {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = self
         tableView.keyboardDismissMode = .onDrag
+        if #available(iOS 13, *) { } else {
+            tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNormalMagnitude))
+        }
         return tableView
     }()
     

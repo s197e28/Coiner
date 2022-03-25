@@ -7,18 +7,13 @@
 
 import Foundation
 
-enum CoincapApiServiceError: Error {
-    
-    case network
-    
-    case unknown
-}
-
 protocol CoincapApiServiceProtocol {
     
     func assets(search: String?, ids: [String]?, limit: Int?, offset: Int?, completion: @escaping (Result<AssetsResponseModel, Error>) -> Void) -> URLSessionTask
     
-    func asset(id: String, completion: @escaping (Result<AssetResponseModel, Error>) -> Void) -> URLSessionTask
+    func assetDetails(id: String, completion: @escaping (Result<AssetDetailsResponseModel, Error>) -> Void) -> URLSessionTask
+    
+    func history(id: String, interval: HistoryInterval, completion: @escaping (Result<HistoryResponseModel, Error>) -> Void) -> URLSessionTask
 }
 
 extension CoincapApiServiceProtocol {

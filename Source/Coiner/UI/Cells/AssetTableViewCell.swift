@@ -18,12 +18,6 @@ final class AssetTableViewCell: UITableViewCell {
         return view
     }()
     
-    private lazy var separatorLineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = SemanticColor.secondaryColor
-        return view
-    }()
-    
     private lazy var symbolLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 22, weight: .regular)
@@ -68,6 +62,7 @@ final class AssetTableViewCell: UITableViewCell {
         nameLabel.text = nil
         priceLabel.text = nil
         changeLabel.text = nil
+        assetImageView.image = nil
     }
     
     // MARK: Private methods
@@ -76,24 +71,16 @@ final class AssetTableViewCell: UITableViewCell {
         accessoryType = .disclosureIndicator
         
         contentView.addSubview(assetImageView)
-        contentView.addSubview(separatorLineView)
         contentView.addSubview(symbolLabel)
         contentView.addSubview(nameLabel)
         contentView.addSubview(priceLabel)
         contentView.addSubview(changeLabel)
         
         assetImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(60)
+            make.height.width.equalTo(60)
             make.top.equalToSuperview().offset(10)
             make.bottom.equalToSuperview().offset(-10)
             make.leading.equalToSuperview().offset(15)
-        }
-        
-        separatorLineView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.leading.equalTo(assetImageView.snp.trailing).offset(15)
-            make.trailing.equalTo(self.snp.trailing)
-            make.height.equalTo(1)
         }
         
         symbolLabel.snp.makeConstraints { make in
@@ -132,6 +119,9 @@ extension AssetTableViewCell: ConfigurableCellProtocol {
         priceLabel.text = model.priceText
         changeLabel.text = model.changeText
         changeLabel.textColor = model.isChangePositive == true ? SemanticColor.positiveTextColor : SemanticColor.negativeTextColor
+        if let image = model.image {
+            assetImageView.image = image
+        }
     }
 }
 
@@ -140,6 +130,8 @@ extension AssetTableViewCell: ConfigurableCellProtocol {
 class AssetTableViewCellModel: ConfigurableCellModelProtocol {
     
     let id: Int?
+    
+    var entity: Any?
     
     var symbolText: String?
     
@@ -151,18 +143,24 @@ class AssetTableViewCellModel: ConfigurableCellModelProtocol {
     
     var isChangePositive: Bool?
     
+    var image: UIImage?
+    
     init(id: Int? = nil,
+         entity: Any?,
          symbolText: String? = nil,
          nameText: String? = nil,
          priceText: String? = nil,
          changeText: String? = nil,
-         isChangePositive: Bool? = nil) {
+         isChangePositive: Bool? = nil,
+         image: UIImage? = nil) {
         self.id = id
+        self.entity = entity
         self.symbolText = symbolText
         self.nameText = nameText
         self.priceText = priceText
         self.changeText = changeText
         self.isChangePositive = isChangePositive
+        self.image = image
     }
     
     func cellType() -> ConfigurableCellProtocol.Type {

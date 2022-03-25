@@ -33,18 +33,22 @@ final class AssetsViewController: UIViewController {
     
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-//        refreshControl.isEnabled = false
+        refreshControl.addTarget(self, action: #selector(self.didRefresh(_:)), for: .valueChanged)
         return refreshControl
     }()
     
     private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.separatorStyle = .none
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.separatorStyle = .singleLine
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 90, bottom: 0, right: 0)
         tableView.register(cellType: AssetTableViewCell.self)
         tableView.dataSource = tableViewDataSource
         tableView.delegate = self
         tableView.keyboardDismissMode = .onDrag
         tableView.refreshControl = refreshControl
+        if #available(iOS 13, *) { } else {
+            tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNormalMagnitude))
+        }
         return tableView
     }()
     
@@ -60,13 +64,16 @@ final class AssetsViewController: UIViewController {
     private func setupUI() {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        definesPresentationContext = true
         
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    @objc func didRefresh(_ sender: AnyObject) {
+        presenter?.didStartRefresh()
     }
 }
 
@@ -86,6 +93,10 @@ extension AssetsViewController: AssetsViewInputProtocol {
     func reloadSearchTableView(with collection: ConfigurableCollectionProtocol) {
         searchResultsViewController.reloadTableView(with: collection)
     }
+    
+    func endRefreshing() {
+        refreshControl.endRefreshing()
+    }
 }
 
 // MARK: UISearchBar delegate
@@ -93,11 +104,11 @@ extension AssetsViewController: AssetsViewInputProtocol {
 extension AssetsViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        presenter?.didSearchTextChanged(searchText)
+        presenter?.didChangeSearchBarText(searchText)
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        presenter?.didTapSearchButton()
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        presenter?.didTapSearchBarCancelButton()
     }
 }
 
@@ -119,7 +130,7 @@ extension AssetsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let cellsCount = tableViewDataSource.collection?.numberOfItems(in: 0),
-              cellsCount < indexPath.row + 3 else {
+              cellsCount < indexPath.row + 2 else {
             return
         }
         presenter?.didScrollToBottom()

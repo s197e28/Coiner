@@ -35,7 +35,6 @@ final class AssetsSearchResultsViewController: UIViewController {
     // MARK: Private methods
     
     private func setupUI() {
-        
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in

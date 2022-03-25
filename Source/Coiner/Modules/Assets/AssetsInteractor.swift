@@ -12,22 +12,28 @@ final class AssetsInteractor: AssetsInteractorInputProtocol {
     weak var output: AssetsInteractorOutputProtocol?
     
     private let coincapApiService: CoincapApiServiceProtocol
+    private let assetsManager: AssetsManagerProtocol
     
-    init(coincapApiService: CoincapApiServiceProtocol) {
+    init(coincapApiService: CoincapApiServiceProtocol,
+         assetsManager: AssetsManagerProtocol) {
         self.coincapApiService = coincapApiService
+        self.assetsManager = assetsManager
     }
     
-    func fetchAssets(skip: Int, take: Int) {
-        let task = coincapApiService.assets(limit: take, offset: skip) { [weak self] (result) in
+    func fetchAssets(search: String?, skip: Int, take: Int) -> URLSessionTask {
+        coincapApiService.assets(search: search, limit: take, offset: skip) { [weak self] (result) in
             guard let self = self else {
                 return
             }
             
             switch result {
             case .success(let model):
-                self.output?.didFetchAssets(items: model.data)
-            case .failure(let error):
+                let items = model.data.map({ AssetEntity(from: $0) })
+                self.output?.didFetchAssets(items: items)
+            case .failure(let error) where error as? CoincapApiServiceError != CoincapApiServiceError.cancelled:
                 self.output?.didFailFetchAssets(error)
+            case .failure:
+                break
             }
         }
     }

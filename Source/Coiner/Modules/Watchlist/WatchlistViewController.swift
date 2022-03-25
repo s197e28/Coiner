@@ -15,14 +15,24 @@ final class WatchlistViewController: UIViewController {
         ConfigurableTableViewDataSource()
     }()
     
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.didRefresh(_:)), for: .valueChanged)
+        return refreshControl
+    }()
+    
     private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
-        tableView.register(cellType: UITableViewCell.self)
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.separatorStyle = .singleLine
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 90, bottom: 0, right: 0)
+        tableView.register(cellType: AssetTableViewCell.self)
         tableView.dataSource = tableViewDataSource
         tableView.delegate = self
         tableView.keyboardDismissMode = .onDrag
+        tableView.refreshControl = refreshControl
+        if #available(iOS 13, *) { } else {
+            tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNormalMagnitude))
+        }
         return tableView
     }()
     
@@ -33,19 +43,24 @@ final class WatchlistViewController: UIViewController {
         presenter?.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        presenter?.viewWillAppear()
+    }
+    
     // MARK: Private methods
     
     private func setupUI() {
-        view.backgroundColor = UIColor.white
-        
         view.addSubview(tableView)
         
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    @objc func didRefresh(_ sender: AnyObject) {
+        presenter?.didStartRefresh()
     }
 }
 
@@ -60,6 +75,19 @@ extension WatchlistViewController: WatchlistViewInputProtocol {
     func reloadTableView(with collection: ConfigurableCollectionProtocol) {
         tableViewDataSource.update(collection: collection)
         tableView.reloadData()
+    }
+    
+    func deleteTableRows(at indexPaths: [IndexPath], with collection: ConfigurableCollectionProtocol) {
+        tableViewDataSource.update(collection: collection)
+        tableView.deleteRows(at: indexPaths, with: .fade)
+    }
+    
+    func reloadTableRows(at indexPaths: [IndexPath]) {
+        tableView.reloadRows(at: indexPaths, with: .none)
+    }
+    
+    func endRefreshing() {
+        refreshControl.endRefreshing()
     }
 }
 
@@ -77,5 +105,14 @@ extension WatchlistViewController: UITableViewDelegate {
         }
         
         presenter?.didSelectTableRow(model)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let removeAction = UIContextualAction(style: .destructive, title: loc("Remove")) { [weak self] (_, _, completionHandler) in
+            completionHandler(true)
+            self?.presenter?.didActionRemoveTableRow(at: indexPath)
+        }
+        removeAction.backgroundColor = SemanticColor.negativeTextColor
+        return UISwipeActionsConfiguration(actions: [removeAction])
     }
 }
