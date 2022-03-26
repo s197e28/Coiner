@@ -29,7 +29,6 @@ extension ModuleRouterProtocol {
             alertAction.addAction(UIAlertAction(title: action.title, style: action.style, handler: { _ in action.handler?() }))
         }
         
-        
         viewController.present(alertAction, animated: true, completion: nil)
     }
     

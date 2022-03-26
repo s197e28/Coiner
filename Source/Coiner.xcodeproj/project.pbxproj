@@ -16,10 +16,11 @@
 		0720FC4D27EE274700273A35 /* HistoryPointEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0720FC4C27EE274700273A35 /* HistoryPointEntity.swift */; };
 		0720FC4F27EE2E0F00273A35 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0720FC4E27EE2E0F00273A35 /* ChartView.swift */; };
 		0720FC5127EE844900273A35 /* AssetDetailsResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0720FC5027EE844900273A35 /* AssetDetailsResponseModel.swift */; };
-		0720FC5327EE9CB500273A35 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0720FC5227EE9CB500273A35 /* UIImageView+Extensions.swift */; };
 		0720FC5627EF1BA000273A35 /* AssetsLogoManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0720FC5527EF1BA000273A35 /* AssetsLogoManagerProtocol.swift */; };
 		0720FC5827EF1BA600273A35 /* AssetsLogoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0720FC5727EF1BA600273A35 /* AssetsLogoManager.swift */; };
 		0720FC5C27EF4F7600273A35 /* TextEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0720FC5B27EF4F7600273A35 /* TextEmptyView.swift */; };
+		0720FC6D27EF7AC700273A35 /* AssetsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0720FC6C27EF7AC700273A35 /* AssetsManagerTests.swift */; };
+		0720FC6F27EF7E6F00273A35 /* OutputMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0720FC6E27EF7E6F00273A35 /* OutputMocks.swift */; };
 		0758CF9727EB92E800FC896D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758CF9627EB92E800FC896D /* AppDelegate.swift */; };
 		0758CFA027EB92EA00FC896D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0758CF9F27EB92EA00FC896D /* Assets.xcassets */; };
 		0758CFAE27EB969E00FC896D /* Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758CFAD27EB969E00FC896D /* Configurator.swift */; };
@@ -28,7 +29,6 @@
 		0758CFBC27EB97C300FC896D /* MainBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758CFB627EB97C300FC896D /* MainBuilder.swift */; };
 		0758CFBD27EB97C300FC896D /* MainProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758CFB727EB97C300FC896D /* MainProtocols.swift */; };
 		0758CFBE27EB97C300FC896D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758CFB827EB97C300FC896D /* MainViewController.swift */; };
-		0758CFC027EB97C300FC896D /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758CFBA27EB97C300FC896D /* MainPresenter.swift */; };
 		0758CFC727EBA37000FC896D /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758CFC627EBA37000FC896D /* UITableView+Extensions.swift */; };
 		0758CFC927EBA38D00FC896D /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758CFC827EBA38D00FC896D /* UITableViewCell+Extensions.swift */; };
 		0758CFCB27EBA3D800FC896D /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758CFCA27EBA3D800FC896D /* Common.swift */; };
@@ -111,6 +111,16 @@
 		952F65CF8536B90233F38EAD /* Pods_Coiner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E5A900CF5243B9BB2414B38 /* Pods_Coiner.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0720FC6527EF7A6600273A35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0758CF8B27EB92E800FC896D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0758CF9227EB92E800FC896D;
+			remoteInfo = Coiner;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0720FC3F27ED3C8600273A35 /* AssetDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailsView.swift; sourceTree = "<group>"; };
 		0720FC4227EE20EC00273A35 /* AssetsStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsStoreProtocol.swift; sourceTree = "<group>"; };
@@ -121,10 +131,12 @@
 		0720FC4C27EE274700273A35 /* HistoryPointEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPointEntity.swift; sourceTree = "<group>"; };
 		0720FC4E27EE2E0F00273A35 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		0720FC5027EE844900273A35 /* AssetDetailsResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailsResponseModel.swift; sourceTree = "<group>"; };
-		0720FC5227EE9CB500273A35 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		0720FC5527EF1BA000273A35 /* AssetsLogoManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsLogoManagerProtocol.swift; sourceTree = "<group>"; };
 		0720FC5727EF1BA600273A35 /* AssetsLogoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsLogoManager.swift; sourceTree = "<group>"; };
 		0720FC5B27EF4F7600273A35 /* TextEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEmptyView.swift; sourceTree = "<group>"; };
+		0720FC6127EF7A6600273A35 /* CoinerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoinerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0720FC6C27EF7AC700273A35 /* AssetsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsManagerTests.swift; sourceTree = "<group>"; };
+		0720FC6E27EF7E6F00273A35 /* OutputMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputMocks.swift; sourceTree = "<group>"; };
 		0758CF9327EB92E800FC896D /* Coiner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coiner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0758CF9627EB92E800FC896D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0758CF9F27EB92EA00FC896D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -135,7 +147,6 @@
 		0758CFB627EB97C300FC896D /* MainBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBuilder.swift; sourceTree = "<group>"; };
 		0758CFB727EB97C300FC896D /* MainProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainProtocols.swift; sourceTree = "<group>"; };
 		0758CFB827EB97C300FC896D /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		0758CFBA27EB97C300FC896D /* MainPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		0758CFC627EBA37000FC896D /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		0758CFC827EBA38D00FC896D /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
 		0758CFCA27EBA3D800FC896D /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
@@ -227,6 +238,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0720FC5E27EF7A6600273A35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0758CF9027EB92E800FC896D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -266,10 +284,20 @@
 			path = AssetsLogoManager;
 			sourceTree = "<group>";
 		};
+		0720FC6227EF7A6600273A35 /* CoinerTests */ = {
+			isa = PBXGroup;
+			children = (
+				0720FC6E27EF7E6F00273A35 /* OutputMocks.swift */,
+				0720FC6C27EF7AC700273A35 /* AssetsManagerTests.swift */,
+			);
+			path = CoinerTests;
+			sourceTree = "<group>";
+		};
 		0758CF8A27EB92E800FC896D = {
 			isa = PBXGroup;
 			children = (
 				0758CF9527EB92E800FC896D /* Coiner */,
+				0720FC6227EF7A6600273A35 /* CoinerTests */,
 				0758CF9427EB92E800FC896D /* Products */,
 				A431AE08FD7364FEB4EC70F3 /* Pods */,
 				8C819D87F39BA09FD9285D68 /* Frameworks */,
@@ -280,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				0758CF9327EB92E800FC896D /* Coiner.app */,
+				0720FC6127EF7A6600273A35 /* CoinerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -339,7 +368,6 @@
 				0758CFB727EB97C300FC896D /* MainProtocols.swift */,
 				0758CFB627EB97C300FC896D /* MainBuilder.swift */,
 				0758CFB827EB97C300FC896D /* MainViewController.swift */,
-				0758CFBA27EB97C300FC896D /* MainPresenter.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -384,7 +412,6 @@
 				0758CFD227EBA49600FC896D /* Collection+Extensions.swift */,
 				07CF491627ED15CC00B3B492 /* Decimal+Extensions.swift */,
 				07CF491827ED17F500B3B492 /* Float+Extensions.swift */,
-				0720FC5227EE9CB500273A35 /* UIImageView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -633,6 +660,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0720FC6027EF7A6600273A35 /* CoinerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0720FC6727EF7A6600273A35 /* Build configuration list for PBXNativeTarget "CoinerTests" */;
+			buildPhases = (
+				0720FC5D27EF7A6600273A35 /* Sources */,
+				0720FC5E27EF7A6600273A35 /* Frameworks */,
+				0720FC5F27EF7A6600273A35 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0720FC6627EF7A6600273A35 /* PBXTargetDependency */,
+			);
+			name = CoinerTests;
+			productName = CoinerTests;
+			productReference = 0720FC6127EF7A6600273A35 /* CoinerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		0758CF9227EB92E800FC896D /* Coiner */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0758CFA727EB92EA00FC896D /* Build configuration list for PBXNativeTarget "Coiner" */;
@@ -662,6 +707,10 @@
 				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
+					0720FC6027EF7A6600273A35 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 0758CF9227EB92E800FC896D;
+					};
 					0758CF9227EB92E800FC896D = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -681,11 +730,19 @@
 			projectRoot = "";
 			targets = (
 				0758CF9227EB92E800FC896D /* Coiner */,
+				0720FC6027EF7A6600273A35 /* CoinerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0720FC5F27EF7A6600273A35 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0758CF9127EB92E800FC896D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -750,11 +807,19 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0720FC5D27EF7A6600273A35 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0720FC6F27EF7E6F00273A35 /* OutputMocks.swift in Sources */,
+				0720FC6D27EF7AC700273A35 /* AssetsManagerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0758CF8F27EB92E800FC896D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0720FC5327EE9CB500273A35 /* UIImageView+Extensions.swift in Sources */,
 				07CF491D27ED1A4800B3B492 /* AssetsManagerSubscriberProtocol.swift in Sources */,
 				0758CFE527EBBBF000FC896D /* Localization.swift in Sources */,
 				0720FC5627EF1BA000273A35 /* AssetsLogoManagerProtocol.swift in Sources */,
@@ -804,7 +869,6 @@
 				0758D07C27ECB8F900FC896D /* WatchlistViewController.swift in Sources */,
 				07CF490527ECD7CE00B3B492 /* AssetModel.swift in Sources */,
 				0758D07227ECB86F00FC896D /* AssetDetailsInteractor.swift in Sources */,
-				0758CFC027EB97C300FC896D /* MainPresenter.swift in Sources */,
 				0758D06827ECB86F00FC896D /* AssetsBuilder.swift in Sources */,
 				0758CFAE27EB969E00FC896D /* Configurator.swift in Sources */,
 				0758CF9727EB92E800FC896D /* AppDelegate.swift in Sources */,
@@ -847,6 +911,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0720FC6627EF7A6600273A35 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0758CF9227EB92E800FC896D /* Coiner */;
+			targetProxy = 0720FC6527EF7A6600273A35 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0758CFF027EBBF0F00FC896D /* Localizable.strings */ = {
@@ -914,6 +986,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0720FC6827EF7A6600273A35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = CoinCap.CoinerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Coiner.app/Coiner";
+			};
+			name = Debug;
+		};
+		0720FC6927EF7A6600273A35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = CoinCap.CoinerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Coiner.app/Coiner";
+			};
+			name = Release;
+		};
 		0758CFA527EB92EA00FC896D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1093,6 +1205,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0720FC6727EF7A6600273A35 /* Build configuration list for PBXNativeTarget "CoinerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0720FC6827EF7A6600273A35 /* Debug */,
+				0720FC6927EF7A6600273A35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0758CF8E27EB92E800FC896D /* Build configuration list for PBXProject "Coiner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

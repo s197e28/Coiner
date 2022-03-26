@@ -30,9 +30,6 @@ final class MainBuilder: MainBuilderProtocol {
     
     func make() -> UIViewController {
         let viewController = MainViewController()
-        let presenter = MainPresenter(view: viewController)
-        
-        viewController.presenter = presenter
         
         viewController.navigationController?.navigationBar.isHidden = true
         viewController.viewControllers = [makeAssetsModule(), makeWatchlistModule(), makeSettingsModule()]

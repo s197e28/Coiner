@@ -26,6 +26,7 @@ final class AssetsPresenter {
     
     private let fetchingCount = 10
     private var state: State = .normal
+    private var isAllItemsFetched: Bool = false
     
     private var searchText: String?
     private var isSearchMode: Bool {
@@ -95,6 +96,7 @@ extension AssetsPresenter: AssetsViewOutputProtocol {
             return
         }
         
+        isAllItemsFetched = false
         currentFetchingTask?.cancel()
         currentFetchingTask = nil
         
@@ -108,8 +110,9 @@ extension AssetsPresenter: AssetsViewOutputProtocol {
         currentFetchingTask?.cancel()
         fetchedSearchItems.removeAll()
         searchTableCollection.removeAll()
-        
+        isAllItemsFetched = false
         searchText = value
+        
         guard searchText?.isEmpty == false else {
             view?.changeRefresh(isOn: true)
             view?.reloadTableView(with: tableCollection)
@@ -127,6 +130,7 @@ extension AssetsPresenter: AssetsViewOutputProtocol {
         currentFetchingTask?.cancel()
         fetchedSearchItems.removeAll()
         searchTableCollection.removeAll()
+        isAllItemsFetched = false
         searchText = nil
         
         view?.changeRefresh(isOn: true)
@@ -134,7 +138,7 @@ extension AssetsPresenter: AssetsViewOutputProtocol {
     }
     
     func didScrollToBottom() {
-        guard state == .normal else {
+        guard state == .normal, !isAllItemsFetched else {
             return
         }
         
@@ -155,6 +159,7 @@ extension AssetsPresenter: AssetsInteractorOutputProtocol {
         fetchedSearchItems.append(contentsOf: items)
         let cellModels = items.map { mapCellModel($0) }
         searchTableCollection.add(items: cellModels)
+        isAllItemsFetched = items.count < fetchingCount
         DispatchQueue.main.async {
             self.view?.reloadTableView(with: self.searchTableCollection)
             self.state = .normal
@@ -179,6 +184,7 @@ extension AssetsPresenter: AssetsInteractorOutputProtocol {
             tableCollection.add(items: cellModels)
         }
         
+        isAllItemsFetched = items.count < fetchingCount
         DispatchQueue.main.async {
             self.view?.reloadTableView(with: self.tableCollection)
             if oldState == .refreshing {

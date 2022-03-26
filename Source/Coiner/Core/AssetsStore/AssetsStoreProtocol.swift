@@ -8,6 +8,7 @@
 import Foundation
 
 /// Service for managing assets. Use this for save, get and remove models.
+/// @mockable
 protocol AssetsStoreProtocol: AnyObject {
     
     func add(asset: AssetEntity)

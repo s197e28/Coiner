@@ -13,7 +13,7 @@ final class AssetsViewController: UIViewController {
     
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.placeholder = loc("Search")
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = true

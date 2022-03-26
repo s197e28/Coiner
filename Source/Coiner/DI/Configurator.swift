@@ -26,7 +26,6 @@ final class Configurator {
     }
     
     private func configure(assembler: Assembler) {
-        
         assembler.apply(assembly: ServicesAssembly())
         assembler.apply(assembly: ModulesAssembly())
     }

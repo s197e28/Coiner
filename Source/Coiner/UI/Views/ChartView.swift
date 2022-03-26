@@ -41,6 +41,7 @@ final class ChartView: UIView {
     }
     
     func drawPoints(points: [Float], minLabelText: String? = nil, maxLabelText: String? = nil, completion: (() -> Void)? = nil) {
+        // Calculate max and min values
         guard points.count > 1,
               let minPoint = points.min(),
               let maxPoint = points.max() else {
@@ -51,8 +52,10 @@ final class ChartView: UIView {
         let frameHeight = frame.height
         let edgeOffset: CGFloat = 25.0
         
+        // Step by X for every point
         let stepByX = frameWidth / CGFloat(points.count - 1)
         let deltaY = maxPoint - minPoint
+        // For scaling points by Y in frame
         let scaleByY = deltaY > 0 ? (frameHeight - 50) / CGFloat(deltaY) : 1
         
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
@@ -60,6 +63,7 @@ final class ChartView: UIView {
             var coordinates: [CGPoint] = []
             
             for point in points.map({ CGFloat($0 - minPoint) }) {
+                // Subtract height because coord system should start from left botom angle
                 let yPos = frameHeight - edgeOffset - (point * scaleByY)
                 coordinates.append(CGPoint(x: curentXPos, y: yPos))
                 curentXPos += stepByX

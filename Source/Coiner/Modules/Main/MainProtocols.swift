@@ -15,15 +15,3 @@ protocol MainBuilderProtocol: AnyObject {
     func make() -> UIViewController
 }
 
-//MARK: View -> Presenter
-
-protocol MainViewOutputProtocol: AnyObject {
-    
-    func viewDidLoad()
-}
-
-//MARK: Presenter -> ViewController
-
-protocol MainViewInputProtocol: AnyObject {
-    
-}

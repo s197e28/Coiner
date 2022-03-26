@@ -131,8 +131,8 @@ extension AssetDetailsPresenter: AssetDetailsInteractorOutputProtocol {
         let minPrice = items.min(by: { $0.price > $1.price })?.price ?? 0
         let maxPrice = items.max(by: { $0.price > $1.price })?.price ?? 0
         
-        let minPriceLabel = minPrice < 1.1 ? minPrice.amountFormat("$", minFractionDigits: 0, maxFractionDigits: 8) : minPrice.amountFormat("$")
-        let maxPriceLabel = maxPrice < 1.1 ? maxPrice.amountFormat("$", minFractionDigits: 0, maxFractionDigits: 8) : maxPrice.amountFormat("$")
+        let minPriceLabel = interactor?.formatPrice(minPrice, maxFractionDigits: minPrice < 1.1 ? 8 : 2, empty: "")
+        let maxPriceLabel = interactor?.formatPrice(maxPrice, maxFractionDigits: maxPrice < 1.1 ? 8 : 2, empty: "")
         
         DispatchQueue.main.async {
             self.view?.drawChart(points: points, minLabelText: minPriceLabel, maxLabelText: maxPriceLabel)
