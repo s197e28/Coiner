@@ -86,4 +86,8 @@ protocol WatchlistViewInputProtocol: AnyObject {
     func reloadTableRows(at indexPaths: [IndexPath])
     
     func endRefreshing()
+    
+    func showEmptyView()
+    
+    func hideEmptyView()
 }

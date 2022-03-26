@@ -53,9 +53,9 @@ final class AssetDetailsPresenter {
     // MARK: Private methods
     
     private func updateCellsInfo(_ asset: AssetEntity) {
-        cellModels.first(where: { $0.id == CellId.marketCap.rawValue })?.detailsText = asset.marketCap?.amountFormat("$", maxFractionDigits: 0)
-        cellModels.first(where: { $0.id == CellId.supply.rawValue })?.detailsText = asset.supply?.amountFormat("$", maxFractionDigits: 0)
-        cellModels.first(where: { $0.id == CellId.volume.rawValue })?.detailsText = asset.volume24Hr?.amountFormat("$", maxFractionDigits: 0)
+        cellModels.first(where: { $0.id == CellId.marketCap.rawValue })?.detailsText = interactor?.formatPrice(asset.marketCap, maxFractionDigits: 0, empty: loc("Unknown"))
+        cellModels.first(where: { $0.id == CellId.supply.rawValue })?.detailsText = interactor?.formatPrice(asset.supply, maxFractionDigits: 0, empty: loc("Unknown"))
+        cellModels.first(where: { $0.id == CellId.volume.rawValue })?.detailsText = interactor?.formatPrice(asset.volume24Hr, maxFractionDigits: 0, empty: loc("Unknown"))
     }
     
     private func fillDetails(_ asset: AssetEntity) {
@@ -67,10 +67,8 @@ final class AssetDetailsPresenter {
         
         view?.setTitle(text: asset.name, details: asset.symbol)
         view?.setFavouriteButton(filled: isAssetInWatchlist)
-        let price = asset.price ?? 0
-        let priceText = price < 0.1 ? price.amountFormat("$", minFractionDigits: 0, maxFractionDigits: 8) : price.amountFormat("$")
-        view?.setHeader(text: priceText)
-        view?.setSubheader(text: asset.changePercentage?.percentFormat(), isPositive: asset.changePercentage ?? -1 > 0)
+        view?.setHeader(text: interactor.formatPrice(asset.price))
+        view?.setSubheader(text: interactor.formatPercentage(asset.changePercentage), isPositive: interactor.isChangePositive(asset.changePercentage))
         
         updateCellsInfo(asset)
         tableCollection.update(with: cellModels)

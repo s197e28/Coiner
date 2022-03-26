@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/// Manager for fetching images of assets.
 protocol AssetsLogoManagerProtocol {
     
     func fetch(assetSymbol: String, completion: @escaping (UIImage?) -> Void)

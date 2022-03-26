@@ -13,10 +13,10 @@ extension AssetEntity {
         self.init(id: model.id,
                   symbol: model.symbol,
                   name: model.name,
-                  price: Decimal(string: model.priceUsd),
-                  marketCap: Decimal(string: model.marketCapUsd),
-                  changePercentage: Float(model.changePercent24Hr),
-                  volume24Hr: Decimal(string: model.volumeUsd24Hr),
-                  supply: Decimal(string: model.supply))
+                  price: Decimal(string: model.priceUsd ?? ""),
+                  marketCap: Decimal(string: model.marketCapUsd ?? ""),
+                  changePercentage: Float(model.changePercent24Hr ?? ""),
+                  volume24Hr: Decimal(string: model.volumeUsd24Hr ?? ""),
+                  supply: Decimal(string: model.supply ?? ""))
     }
 }

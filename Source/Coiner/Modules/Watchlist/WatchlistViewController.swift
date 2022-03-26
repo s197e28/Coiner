@@ -29,11 +29,17 @@ final class WatchlistViewController: UIViewController {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = self
         tableView.keyboardDismissMode = .onDrag
-        tableView.refreshControl = refreshControl
         if #available(iOS 13, *) { } else {
             tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNormalMagnitude))
         }
         return tableView
+    }()
+    
+    private lazy var emptyView: TextEmptyView = {
+        let view = TextEmptyView()
+        view.titleLabel.text = loc("EmptyTitle", from: .watchlist)
+        view.subtitleLabel.text = loc("EmptySubtitle", from: .watchlist)
+        return view
     }()
     
     override func viewDidLoad() {
@@ -57,6 +63,9 @@ final class WatchlistViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        tableView.refreshControl = refreshControl
+        tableView.layoutIfNeeded()
     }
     
     @objc func didRefresh(_ sender: AnyObject) {
@@ -88,6 +97,16 @@ extension WatchlistViewController: WatchlistViewInputProtocol {
     
     func endRefreshing() {
         refreshControl.endRefreshing()
+    }
+    
+    func showEmptyView() {
+        tableView.backgroundView = emptyView
+        tableView.isScrollEnabled = false
+    }
+    
+    func hideEmptyView() {
+        tableView.backgroundView = nil
+        tableView.isScrollEnabled = true
     }
 }
 

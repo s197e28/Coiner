@@ -27,13 +27,10 @@ final class AssetsPresenter {
     private let fetchingCount = 10
     private var state: State = .normal
     
-    private var searchIsLoading: Bool = false
-    
-    private var searchMode: Bool {
+    private var searchText: String?
+    private var isSearchMode: Bool {
         searchText?.isEmpty == false
     }
-    private var searchText: String?
-    
     private var currentFetchingTask: URLSessionTask?
     private var fetchedItems: [AssetEntity] = []
     private var fetchedSearchItems: [AssetEntity] = []
@@ -51,40 +48,22 @@ final class AssetsPresenter {
     
     // MARK: Private methods
     
-    private func fetchNextPage() {
-        state = .loadingMore
-        currentFetchingTask = interactor?.fetchAssets(skip: fetchedItems.count, take: fetchingCount)
-    }
-    
-    private func mapCellModel(_ entity: AssetEntity) -> AssetTableViewCellModel {
-        let price = entity.price ?? 0
-        let priceText = price < 0.1 ? price.amountFormat("$", minFractionDigits: 0, maxFractionDigits: 8) : price.amountFormat("$")
+    private func mapCellModel(_ item: AssetEntity) -> AssetTableViewCellModel {
+        let cellModel = AssetTableViewCellModel(
+            entity: item.id,
+            symbolText: item.symbol,
+            nameText: item.name,
+            priceText: interactor?.formatPrice(item.price),
+            changeText: interactor?.formatPercentage(item.changePercentage),
+            isChangePositive: interactor?.isChangePositive(item.changePercentage))
         
-        return AssetTableViewCellModel(
-            entity: entity.id,
-            symbolText: entity.symbol,
-            nameText: entity.name,
-            priceText: priceText,
-            changeText: entity.changePercentage?.percentFormat(),
-            isChangePositive: entity.changePercentage ?? -1 > 0)
-    }
-    
-    private func didFetchSearchAssets(_ items: [AssetEntity]) {
-        fetchedSearchItems.append(contentsOf: items)
-        let cellModels = items.map { mapCellModel($0) }
-        searchTableCollection.add(items: cellModels)
+        if let logoImage = interactor?.retriveLogo(for: item) {
+            cellModel.image = logoImage
+        } else {
+            interactor?.fetchLogo(for: item)
+        }
         
-        DispatchQueue.main.async {
-            self.view?.reloadSearchTableView(with: self.searchTableCollection)
-            self.searchIsLoading = false
-        }
-    }
-    
-    private func didFailFetchSearchAssets(_ error: Error) {
-        DispatchQueue.main.async {
-            self.router.showAlert(title: loc("AlertError"), message: error.localizedDescription)
-            self.searchIsLoading = false
-        }
+        return cellModel
     }
 }
 
@@ -95,13 +74,16 @@ extension AssetsPresenter: AssetsViewOutputProtocol {
     func viewDidLoad() {
         view?.setTitle(text: loc("ModuleTitle", from: .assets))
         
-        fetchNextPage()
+        state = .loadingMore
+        currentFetchingTask = interactor?.fetchAssets(skip: 0, take: fetchingCount)
+        view?.changeRefresh(isOn: true)
     }
     
     func didSelectTableRow(_ model: ConfigurableCellModelProtocol) {
+        let items = isSearchMode ? fetchedSearchItems : fetchedItems
         guard let cellModel = model as? AssetTableViewCellModel,
               let entityId = cellModel.entity as? String,
-              let asset = fetchedItems.first(where: { $0.id == entityId }) else {
+              let asset = items.first(where: { $0.id == entityId }) else {
             return
         }
         
@@ -122,23 +104,33 @@ extension AssetsPresenter: AssetsViewOutputProtocol {
     }
     
     func didChangeSearchBarText(_ value: String?) {
-        searchText = value
-        
+        // When search text was changed, clear table, cancel task and fetch new data
+        currentFetchingTask?.cancel()
         fetchedSearchItems.removeAll()
         searchTableCollection.removeAll()
-        view?.reloadSearchTableView(with: searchTableCollection)
         
-        guard value?.isEmpty == false else {
+        searchText = value
+        guard searchText?.isEmpty == false else {
+            view?.changeRefresh(isOn: true)
+            view?.reloadTableView(with: tableCollection)
             return
         }
         
+        view?.changeRefresh(isOn: false)
+        view?.reloadTableView(with: searchTableCollection)
+        state = .loadingMore
         currentFetchingTask = interactor?.fetchAssets(search: value, skip: 0, take: fetchingCount)
     }
     
     func didTapSearchBarCancelButton() {
-//        currentFetchingTask?.cancel()
-//        currentFetchingTask = nil
-//        searchText = nil
+        // When search bar cancel button was tapped, clear table, cancel task and reload normal data
+        currentFetchingTask?.cancel()
+        fetchedSearchItems.removeAll()
+        searchTableCollection.removeAll()
+        searchText = nil
+        
+        view?.changeRefresh(isOn: true)
+        view?.reloadTableView(with: tableCollection)
     }
     
     func didScrollToBottom() {
@@ -146,7 +138,12 @@ extension AssetsPresenter: AssetsViewOutputProtocol {
             return
         }
         
-//        fetchNextPage()
+        state = .loadingMore
+        if isSearchMode {
+            currentFetchingTask = interactor?.fetchAssets(search: searchText, skip: fetchedSearchItems.count, take: fetchingCount)
+        } else {
+            currentFetchingTask = interactor?.fetchAssets(skip: fetchedItems.count, take: fetchingCount)
+        }
     }
 }
 
@@ -154,9 +151,19 @@ extension AssetsPresenter: AssetsViewOutputProtocol {
 
 extension AssetsPresenter: AssetsInteractorOutputProtocol {
     
+    private func didFetchSearchAssets(items: [AssetEntity]) {
+        fetchedSearchItems.append(contentsOf: items)
+        let cellModels = items.map { mapCellModel($0) }
+        searchTableCollection.add(items: cellModels)
+        DispatchQueue.main.async {
+            self.view?.reloadTableView(with: self.searchTableCollection)
+            self.state = .normal
+        }
+    }
+    
     func didFetchAssets(items: [AssetEntity]) {
-        guard !searchMode else {
-            didFetchSearchAssets(items)
+        if isSearchMode {
+            didFetchSearchAssets(items: items)
             return
         }
         
@@ -182,11 +189,6 @@ extension AssetsPresenter: AssetsInteractorOutputProtocol {
     }
     
     func didFailFetchAssets(_ error: Error) {
-        guard !searchMode else {
-            didFailFetchSearchAssets(error)
-            return
-        }
-        
         let oldState = state
         
         DispatchQueue.main.async {
@@ -195,6 +197,20 @@ extension AssetsPresenter: AssetsInteractorOutputProtocol {
             }
             self.router.showAlert(title: loc("AlertError"), message: error.localizedDescription)
             self.state = .normal
+        }
+    }
+    
+    func didFetchLogo(asset: AssetEntity, image: UIImage) {
+        let collection = isSearchMode ? searchTableCollection : tableCollection
+        guard let sectionItems = collection.sections.first?.items as? [AssetTableViewCellModel],
+              let cellModelIndex = sectionItems.firstIndex(where: { $0.entity as? String == asset.id }),
+              let cellModel = sectionItems[safe: cellModelIndex] else {
+            return
+        }
+        
+        cellModel.image = image
+        DispatchQueue.main.async {
+            self.view?.reloadTableRows(at: [IndexPath(row: cellModelIndex, section: 0)])
         }
     }
 }

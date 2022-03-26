@@ -11,30 +11,17 @@ final class AssetsViewController: UIViewController {
     
     var presenter: AssetsViewOutputProtocol?
     
-    private lazy var searchResultsViewController: AssetsSearchResultsViewController = {
-        let viewController = AssetsSearchResultsViewController()
-        viewController.presenter = presenter
-        return viewController
-    }()
-    
     private lazy var searchController: UISearchController = {
-        let searchController = UISearchController(searchResultsController: searchResultsViewController)
+        let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "Поиск"
         searchController.searchBar.delegate = self
-//        searchController.showsSearchResultsController = true
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = true
-        
         return searchController
     }()
     
     private lazy var tableViewDataSource: ConfigurableTableViewDataSource = {
         ConfigurableTableViewDataSource()
-    }()
-    
-    private lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(self.didRefresh(_:)), for: .valueChanged)
-        return refreshControl
     }()
     
     private lazy var tableView: UITableView = {
@@ -45,7 +32,6 @@ final class AssetsViewController: UIViewController {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = self
         tableView.keyboardDismissMode = .onDrag
-        tableView.refreshControl = refreshControl
         if #available(iOS 13, *) { } else {
             tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNormalMagnitude))
         }
@@ -59,17 +45,28 @@ final class AssetsViewController: UIViewController {
         presenter?.viewDidLoad()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     // MARK: Private methods
     
     private func setupUI() {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
         
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    private func makeRefreshControl() -> UIRefreshControl {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.didRefresh(_:)), for: .valueChanged)
+        return refreshControl
     }
     
     @objc func didRefresh(_ sender: AnyObject) {
@@ -90,12 +87,24 @@ extension AssetsViewController: AssetsViewInputProtocol {
         tableView.reloadData()
     }
     
-    func reloadSearchTableView(with collection: ConfigurableCollectionProtocol) {
-        searchResultsViewController.reloadTableView(with: collection)
+    func reloadTableRows(at indexPaths: [IndexPath]) {
+        tableView.reloadRows(at: indexPaths, with: .none)
     }
     
     func endRefreshing() {
-        refreshControl.endRefreshing()
+        tableView.refreshControl?.endRefreshing()
+    }
+    
+    func changeRefresh(isOn: Bool) {
+        if isOn {
+            tableView.refreshControl = makeRefreshControl()
+            tableView.setNeedsLayout()
+            tableView.layoutIfNeeded()
+        } else {
+            let refreshControl = tableView.refreshControl
+            refreshControl?.removeFromSuperview()
+            tableView.refreshControl = nil
+        }
     }
 }
 
@@ -104,6 +113,7 @@ extension AssetsViewController: AssetsViewInputProtocol {
 extension AssetsViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        navigationItem.
         presenter?.didChangeSearchBarText(searchText)
     }
     

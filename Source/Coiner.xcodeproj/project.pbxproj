@@ -19,6 +19,7 @@
 		0720FC5327EE9CB500273A35 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0720FC5227EE9CB500273A35 /* UIImageView+Extensions.swift */; };
 		0720FC5627EF1BA000273A35 /* AssetsLogoManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0720FC5527EF1BA000273A35 /* AssetsLogoManagerProtocol.swift */; };
 		0720FC5827EF1BA600273A35 /* AssetsLogoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0720FC5727EF1BA600273A35 /* AssetsLogoManager.swift */; };
+		0720FC5C27EF4F7600273A35 /* TextEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0720FC5B27EF4F7600273A35 /* TextEmptyView.swift */; };
 		0758CF9727EB92E800FC896D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758CF9627EB92E800FC896D /* AppDelegate.swift */; };
 		0758CFA027EB92EA00FC896D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0758CF9F27EB92EA00FC896D /* Assets.xcassets */; };
 		0758CFAE27EB969E00FC896D /* Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758CFAD27EB969E00FC896D /* Configurator.swift */; };
@@ -91,7 +92,6 @@
 		0758D09A27ECC4EA00FC896D /* Localizable.AssetDetails.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0758D09C27ECC4EA00FC896D /* Localizable.AssetDetails.strings */; };
 		0758D0A027ECC53700FC896D /* LocalizationPackage+Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758D09F27ECC53700FC896D /* LocalizationPackage+Watchlist.swift */; };
 		0758D0A327ECC55A00FC896D /* Localizable.Watchlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0758D0A527ECC55A00FC896D /* Localizable.Watchlist.strings */; };
-		0758D0A827ECC67100FC896D /* AssetsSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758D0A727ECC67100FC896D /* AssetsSearchResultsViewController.swift */; };
 		07CF48FD27ECCFE100B3B492 /* AssetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF48FC27ECCFE100B3B492 /* AssetTableViewCell.swift */; };
 		07CF48FF27ECD6F400B3B492 /* CoincapApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF48FE27ECD6F400B3B492 /* CoincapApiService.swift */; };
 		07CF490227ECD71700B3B492 /* CoincapApiServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF490127ECD71700B3B492 /* CoincapApiServiceProtocol.swift */; };
@@ -124,6 +124,7 @@
 		0720FC5227EE9CB500273A35 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		0720FC5527EF1BA000273A35 /* AssetsLogoManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsLogoManagerProtocol.swift; sourceTree = "<group>"; };
 		0720FC5727EF1BA600273A35 /* AssetsLogoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsLogoManager.swift; sourceTree = "<group>"; };
+		0720FC5B27EF4F7600273A35 /* TextEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEmptyView.swift; sourceTree = "<group>"; };
 		0758CF9327EB92E800FC896D /* Coiner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coiner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0758CF9627EB92E800FC896D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0758CF9F27EB92EA00FC896D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -204,7 +205,6 @@
 		0758D09F27ECC53700FC896D /* LocalizationPackage+Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalizationPackage+Watchlist.swift"; sourceTree = "<group>"; };
 		0758D0A427ECC55A00FC896D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.Watchlist.strings; sourceTree = "<group>"; };
 		0758D0A627ECC55B00FC896D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.Watchlist.strings; sourceTree = "<group>"; };
-		0758D0A727ECC67100FC896D /* AssetsSearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearchResultsViewController.swift; sourceTree = "<group>"; };
 		07CF48FC27ECCFE100B3B492 /* AssetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetTableViewCell.swift; sourceTree = "<group>"; };
 		07CF48FE27ECD6F400B3B492 /* CoincapApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincapApiService.swift; sourceTree = "<group>"; };
 		07CF490127ECD71700B3B492 /* CoincapApiServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincapApiServiceProtocol.swift; sourceTree = "<group>"; };
@@ -243,6 +243,7 @@
 			children = (
 				0720FC3F27ED3C8600273A35 /* AssetDetailsView.swift */,
 				0720FC4E27EE2E0F00273A35 /* ChartView.swift */,
+				0720FC5B27EF4F7600273A35 /* TextEmptyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -497,7 +498,6 @@
 				0758D05B27ECB86E00FC896D /* AssetsBuilder.swift */,
 				0758D05F27ECB86E00FC896D /* AssetsRouter.swift */,
 				0758D05E27ECB86E00FC896D /* AssetsViewController.swift */,
-				0758D0A727ECC67100FC896D /* AssetsSearchResultsViewController.swift */,
 				0758D05C27ECB86E00FC896D /* AssetsPresenter.swift */,
 				0758D05D27ECB86E00FC896D /* AssetsInteractor.swift */,
 			);
@@ -766,13 +766,13 @@
 				0758D06F27ECB86F00FC896D /* AssetDetailsPresenter.swift in Sources */,
 				0758D06D27ECB86F00FC896D /* AssetDetailsProtocols.swift in Sources */,
 				0758D08527ECBD8700FC896D /* ChangeIconErrors.swift in Sources */,
+				0720FC5C27EF4F7600273A35 /* TextEmptyView.swift in Sources */,
 				0758D03627EBE4A100FC896D /* AppIconManagerProtocol.swift in Sources */,
 				0758D0A027ECC53700FC896D /* LocalizationPackage+Watchlist.swift in Sources */,
 				0720FC4D27EE274700273A35 /* HistoryPointEntity.swift in Sources */,
 				0720FC4527EE20F900273A35 /* AssetsUserDefaultsStore.swift in Sources */,
 				0720FC4B27EE25C700273A35 /* HistoryInterval.swift in Sources */,
 				07CF491F27ED2F5100B3B492 /* CoincapApiServiceError.swift in Sources */,
-				0758D0A827ECC67100FC896D /* AssetsSearchResultsViewController.swift in Sources */,
 				0720FC4927EE258900273A35 /* HistoryPointModel.swift in Sources */,
 				0758CFE227EBB7DB00FC896D /* SettingsViewController.swift in Sources */,
 				0758D04927EBEC7200FC896D /* ChangeIconViewController.swift in Sources */,

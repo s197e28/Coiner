@@ -43,6 +43,12 @@ protocol AssetDetailsInteractorInputProtocol: AnyObject {
     func addToWatchlist(asset: AssetEntity)
     
     func removeFromWatchlist(asset: AssetEntity)
+    
+    func formatPrice(_ value: Decimal?, maxFractionDigits: Int, empty: String) -> String
+    
+    func formatPercentage(_ value: Float?) -> String
+    
+    func isChangePositive(_ value: Float?) -> Bool
 }
 
 //MARK: Interactor -> Presenter

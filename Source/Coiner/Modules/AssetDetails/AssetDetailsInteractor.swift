@@ -79,6 +79,23 @@ final class AssetDetailsInteractor: AssetDetailsInteractorInputProtocol {
     func removeFromWatchlist(asset: AssetEntity) {
         assetsManager.removeFromWatchlist(asset: asset)
     }
+    
+    func formatPrice(_ value: Decimal?, maxFractionDigits: Int, empty: String) -> String {
+        guard let value = value else {
+            return empty
+        }
+        
+        return value < 0.1 ? value.amountFormat("$", minFractionDigits: 0, maxFractionDigits: 8) : value.amountFormat("$", maxFractionDigits: maxFractionDigits)
+    }
+    
+    func formatPercentage(_ value: Float?) -> String {
+        let value = value ?? 0
+        return value.percentFormat()
+    }
+    
+    func isChangePositive(_ value: Float?) -> Bool {
+        value ?? 0 >= 0
+    }
 }
 
 extension AssetDetailsInteractor: AssetsManagerSubscriberProtocol {
@@ -89,5 +106,12 @@ extension AssetDetailsInteractor: AssetsManagerSubscriberProtocol {
     
     func assetDidRemoveFromWatchlist(_ asset: AssetEntity) {
         output?.onAssetRemoveFromWatchlist(asset: asset)
+    }
+}
+
+extension AssetDetailsInteractorInputProtocol {
+    
+    func formatPrice(_ value: Decimal?) -> String {
+        formatPrice(value, maxFractionDigits: 2, empty: "")
     }
 }

@@ -40,10 +40,6 @@ final class WatchlistInteractor: WatchlistInteractorInputProtocol {
     }
     
     func fetchAssets(ids: [String]) {
-        guard ids.count > 0 else {
-            output?.didFetchAssets(items: [])
-            return
-        }
         _ = coincapApiService.assets(ids: ids) { [weak self] (result) in
             switch result {
             case .success(let model):

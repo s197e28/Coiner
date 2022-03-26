@@ -13,7 +13,7 @@ import UIKit
 final class AssetTableViewCell: UITableViewCell {
     
     private lazy var assetImageView: UIImageView = {
-        let view = UIImageView()
+        let view = UIImageView(frame: .init(x: 0, y: 0, width: 60, height: 60))
         
         return view
     }()
@@ -78,12 +78,12 @@ final class AssetTableViewCell: UITableViewCell {
         
         assetImageView.snp.makeConstraints { make in
             make.height.width.equalTo(60)
-            make.top.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().offset(-10)
+            make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(15)
         }
         
         symbolLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(14)
             make.leading.equalTo(assetImageView.snp.trailing).offset(15)
             make.trailing.equalTo(priceLabel).offset(-8)
             make.bottom.equalTo(contentView.snp.centerY)
@@ -93,6 +93,7 @@ final class AssetTableViewCell: UITableViewCell {
             make.leading.equalTo(assetImageView.snp.trailing).offset(15)
             make.trailing.equalTo(changeLabel).offset(-8)
             make.top.equalTo(contentView.snp.centerY)
+            make.bottom.equalToSuperview().offset(-16)
         }
         
         priceLabel.snp.makeConstraints { make in

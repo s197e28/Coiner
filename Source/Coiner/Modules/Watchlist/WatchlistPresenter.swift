@@ -50,15 +50,17 @@ final class WatchlistPresenter {
     }
     
     private func updateCellModels(_ items: [AssetEntity]) {
+        guard !items.isEmpty else {
+            tableCollection.removeAll()
+            view?.reloadTableView(with: tableCollection)
+            view?.showEmptyView()
+            return
+        }
+        
         let cellModels = items.map { mapCellModel($0) }
         tableCollection.update(with: cellModels)
+        view?.hideEmptyView()
         view?.reloadTableView(with: tableCollection)
-    }
-    
-    private func refreshAssets() {
-        isRefresing = true
-        let ids = items.map({ $0.id })
-        interactor?.fetchAssets(ids: ids)
     }
 }
 
@@ -81,7 +83,13 @@ extension WatchlistPresenter: WatchlistViewOutputProtocol {
             return
         }
         
-        refreshAssets()
+        let ids = items.map({ $0.id })
+        guard !ids.isEmpty else {
+            return
+        }
+        
+        isRefresing = true
+        interactor?.fetchAssets(ids: ids)
     }
     
     func didStartRefresh() {
@@ -89,7 +97,14 @@ extension WatchlistPresenter: WatchlistViewOutputProtocol {
             return
         }
         
-        refreshAssets()
+        let ids = items.map({ $0.id })
+        guard !ids.isEmpty else {
+            view?.endRefreshing()
+            return
+        }
+        
+        isRefresing = true
+        interactor?.fetchAssets(ids: ids)
     }
     
     func didSelectTableRow(_ model: ConfigurableCellModelProtocol) {
@@ -134,11 +149,13 @@ extension WatchlistPresenter: WatchlistInteractorOutputProtocol {
     }
     
     func didFetchAssets(items: [AssetEntity]) {
+        defer {
+            isRefresing = false
+        }
+        
         guard let sectionItems = tableCollection.sections.first?.items as? [AssetTableViewCellModel] else {
             return
         }
-        
-        var indexesForUpdate: [IndexPath] = []
         
         for item in items {
             guard let itemIndex = self.items.firstIndex(where: { $0.id == item.id }),
@@ -148,7 +165,6 @@ extension WatchlistPresenter: WatchlistInteractorOutputProtocol {
                   }
             
             self.items[itemIndex] = item
-            indexesForUpdate.append(IndexPath(row: cellModelIndex, section: 0))
             
             cellModel.priceText = interactor?.formatPrice(item.price)
             cellModel.changeText = interactor?.formatPercentage(item.changePercentage)
@@ -159,9 +175,8 @@ extension WatchlistPresenter: WatchlistInteractorOutputProtocol {
         }
         
         DispatchQueue.main.async {
-            self.view?.reloadTableRows(at: indexesForUpdate)
+            self.view?.reloadTableView(with: self.tableCollection)
             self.view?.endRefreshing()
-            self.isRefresing = false
         }
     }
     

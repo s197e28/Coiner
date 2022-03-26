@@ -44,6 +44,16 @@ protocol AssetsViewOutputProtocol: AnyObject {
 protocol AssetsInteractorInputProtocol: AnyObject {
     
     func fetchAssets(search: String?, skip: Int, take: Int) -> URLSessionTask
+    
+    func retriveLogo(for asset: AssetEntity) -> UIImage?
+    
+    func fetchLogo(for asset: AssetEntity)
+    
+    func formatPrice(_ value: Decimal?) -> String
+    
+    func formatPercentage(_ value: Float?) -> String
+    
+    func isChangePositive(_ value: Float?) -> Bool
 }
 
 extension AssetsInteractorInputProtocol {
@@ -60,6 +70,8 @@ protocol AssetsInteractorOutputProtocol: AnyObject {
     func didFetchAssets(items: [AssetEntity])
     
     func didFailFetchAssets(_ error: Error)
+    
+    func didFetchLogo(asset: AssetEntity, image: UIImage)
 }
 
 //MARK: Presenter -> ViewController
@@ -70,7 +82,9 @@ protocol AssetsViewInputProtocol: AnyObject {
     
     func reloadTableView(with collection: ConfigurableCollectionProtocol)
     
-    func reloadSearchTableView(with collection: ConfigurableCollectionProtocol)
+    func reloadTableRows(at indexPaths: [IndexPath])
     
     func endRefreshing()
+    
+    func changeRefresh(isOn: Bool)
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// API service for fetch information
 protocol CoincapApiServiceProtocol {
     
     func assets(search: String?, ids: [String]?, limit: Int?, offset: Int?, completion: @escaping (Result<AssetsResponseModel, Error>) -> Void) -> URLSessionTask

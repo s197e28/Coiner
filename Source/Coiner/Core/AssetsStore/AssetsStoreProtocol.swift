@@ -7,7 +7,8 @@
 
 import Foundation
 
-protocol AssetsStoreProtocol {
+/// Service for managing assets. Use this for save, get and remove models.
+protocol AssetsStoreProtocol: AnyObject {
     
     func add(asset: AssetEntity)
     

@@ -15,13 +15,13 @@ struct AssetModel: Codable {
     
     var name: String
     
-    var priceUsd: String
+    var priceUsd: String?
     
-    var changePercent24Hr: String
+    var changePercent24Hr: String?
     
-    var marketCapUsd: String
+    var marketCapUsd: String?
     
-    var volumeUsd24Hr: String
+    var volumeUsd24Hr: String?
     
-    var supply: String
+    var supply: String?
 }

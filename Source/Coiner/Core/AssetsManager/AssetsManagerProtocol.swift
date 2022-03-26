@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Manager for handling actions on watched Assets.
 protocol AssetsManagerProtocol: AnyObject {
     
     func subscribe(_ subscriber: AssetsManagerSubscriberProtocol)
